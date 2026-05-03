@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Taller Mecánico Cappetta</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cappetta">
+<meta name="theme-color" content="#f5a623">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23f5a623'/><text y='.9em' font-size='75' x='12'>🔧</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d0d;
+  --surface: #181818;
+  --surface2: #212121;
+  --border: #2a2a2a;
+  --accent: #f5a623;
+  --accent-dim: rgba(245,166,35,0.12);
+  --red: #e8410a;
+  --text: #f0f0f0;
+  --muted: #777;
+  --success: #25D366;
+  --radius: 12px;
+}
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘Barlow’, sans-serif;
+min-height: 100vh;
+padding-bottom: 80px;
+}
+
+/* ── HEADER ── */
+header {
+background: #111;
+border-bottom: 3px solid var(–accent);
+padding: 16px 20px;
+position: sticky;
+top: 0;
+z-index: 200;
+}
+
+.header-inner {
+max-width: 640px;
+margin: 0 auto;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.brand {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.brand-icon {
+width: 42px; height: 42px;
+background: var(–accent);
+border-radius: 10px;
+display: flex; align-items: center; justify-content: center;
+font-size: 20px; flex-shrink: 0;
+}
+
+.brand-name {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 17px;
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+line-height: 1.15;
+}
+
+.brand-name span {
+display: block;
+font-size: 10px;
+font-weight: 500;
+color: var(–muted);
+letter-spacing: 2px;
+}
+
+/* ── TABS ── */
+.tabs {
+max-width: 640px;
+margin: 0 auto;
+display: flex;
+padding: 16px 16px 0;
+gap: 8px;
+}
+
+.tab {
+flex: 1;
+padding: 11px 8px;
+border: 1.5px solid var(–border);
+border-radius: 10px;
+background: var(–surface);
+color: var(–muted);
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 14px;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.2s;
+text-align: center;
+}
+
+.tab.active {
+background: var(–accent);
+border-color: var(–accent);
+color: #000;
+}
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── FORM ── */
+.form-wrap {
+max-width: 640px;
+margin: 0 auto;
+padding: 20px 16px;
+}
+
+.section-label {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–accent);
+margin-bottom: 12px;
+margin-top: 24px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.section-label::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: var(–border);
+}
+
+.field { margin-bottom: 12px; }
+
+label {
+display: block;
+font-size: 11px;
+font-weight: 600;
+color: var(–muted);
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-bottom: 5px;
+}
+
+input, textarea {
+width: 100%;
+background: var(–surface);
+border: 1.5px solid var(–border);
+border-radius: var(–radius);
+color: var(–text);
+font-family: ‘Barlow’, sans-serif;
+font-size: 16px;
+padding: 12px 14px;
+outline: none;
+transition: border-color 0.2s, background 0.2s;
+-webkit-appearance: none;
+}
+
+input:focus, textarea:focus {
+border-color: var(–accent);
+background: var(–surface2);
+}
+
+input::placeholder, textarea::placeholder { color: #3a3a3a; }
+
+textarea {
+resize: vertical;
+min-height: 85px;
+line-height: 1.5;
+}
+
+#patente {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 24px;
+font-weight: 700;
+letter-spacing: 4px;
+text-transform: uppercase;
+}
+
+.row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+}
+
+.req { color: var(–red); }
+
+.fecha-badge {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 9px 13px;
+font-size: 13px;
+color: var(–muted);
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.fecha-badge strong { color: var(–text); font-size: 14px; }
+
+/* ── BUTTONS ── */
+.btn-whatsapp {
+width: 100%;
+margin-top: 28px;
+padding: 17px;
+background: var(–success);
+border: none;
+border-radius: 14px;
+color: white;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 19px;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+transition: transform 0.15s, box-shadow 0.15s;
+box-shadow: 0 4px 24px rgba(37,211,102,0.2);
+}
+
+.btn-whatsapp:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 32px rgba(37,211,102,0.32);
+}
+
+.btn-whatsapp svg { width: 24px; height: 24px; fill: white; }
+
+.btn-reset {
+width: 100%;
+margin-top: 10px;
+padding: 13px;
+background: transparent;
+border: 1.5px solid var(–border);
+border-radius: 14px;
+color: var(–muted);
+font-family: ‘Barlow’, sans-serif;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-reset:hover { border-color: var(–red); color: var(–red); }
+
+/* ── HISTORIAL ── */
+.historial-wrap {
+max-width: 640px;
+margin: 0 auto;
+padding: 20px 16px;
+}
+
+.hist-toolbar {
+display: flex;
+gap: 10px;
+margin-bottom: 16px;
+align-items: center;
+}
+
+.hist-search {
+flex: 1;
+background: var(–surface);
+border: 1.5px solid var(–border);
+border-radius: var(–radius);
+color: var(–text);
+font-family: ‘Barlow’, sans-serif;
+font-size: 15px;
+padding: 10px 14px;
+outline: none;
+}
+
+.hist-search:focus { border-color: var(–accent); }
+.hist-search::placeholder { color: #3a3a3a; }
+
+.btn-refresh {
+background: var(–surface);
+border: 1.5px solid var(–border);
+border-radius: var(–radius);
+color: var(–muted);
+font-size: 18px;
+padding: 10px 13px;
+cursor: pointer;
+transition: border-color 0.2s, color 0.2s;
+flex-shrink: 0;
+}
+
+.btn-refresh:hover { border-color: var(–accent); color: var(–accent); }
+
+/* Grupo por día */
+.day-group { margin-bottom: 24px; }
+
+.day-header {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 12px;
+font-weight: 700;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–accent);
+padding: 6px 0;
+border-bottom: 1px solid var(–border);
+margin-bottom: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.day-count {
+background: var(–accent-dim);
+color: var(–accent);
+border-radius: 20px;
+padding: 2px 10px;
+font-size: 11px;
+}
+
+/* Card de ingreso */
+.ingreso-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-left: 3px solid var(–accent);
+border-radius: var(–radius);
+padding: 14px 15px;
+margin-bottom: 10px;
+cursor: pointer;
+transition: background 0.15s, border-color 0.15s;
+}
+
+.ingreso-card:hover { background: var(–surface2); }
+
+.card-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 8px;
+margin-bottom: 6px;
+}
+
+.card-nombre {
+font-weight: 600;
+font-size: 15px;
+}
+
+.card-patente {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 15px;
+font-weight: 700;
+letter-spacing: 2px;
+background: var(–accent-dim);
+color: var(–accent);
+border-radius: 6px;
+padding: 2px 10px;
+flex-shrink: 0;
+}
+
+.card-auto {
+font-size: 13px;
+color: var(–muted);
+margin-bottom: 5px;
+}
+
+.card-motivo {
+font-size: 13px;
+color: #bbb;
+line-height: 1.4;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+.card-hora {
+font-size: 11px;
+color: var(–muted);
+margin-top: 6px;
+}
+
+/* MODAL */
+.modal-overlay {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.8);
+z-index: 500;
+padding: 20px 16px;
+overflow-y: auto;
+}
+
+.modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; padding-top: 40px; }
+
+.modal {
+background: var(–surface);
+border: 1px solid var(–border);
+border-top: 3px solid var(–accent);
+border-radius: 16px;
+width: 100%;
+max-width: 500px;
+padding: 24px 20px;
+position: relative;
+}
+
+.modal-close {
+position: absolute;
+top: 16px; right: 16px;
+background: var(–surface2);
+border: 1px solid var(–border);
+border-radius: 8px;
+color: var(–muted);
+font-size: 18px;
+width: 34px; height: 34px;
+display: flex; align-items: center; justify-content: center;
+cursor: pointer;
+}
+
+.modal-title {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 22px;
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-bottom: 18px;
+padding-right: 40px;
+}
+
+.modal-row {
+display: flex;
+gap: 8px;
+margin-bottom: 10px;
+align-items: flex-start;
+}
+
+.modal-key {
+font-size: 11px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: var(–muted);
+min-width: 90px;
+padding-top: 1px;
+}
+
+.modal-val {
+font-size: 14px;
+color: var(–text);
+line-height: 1.5;
+}
+
+.modal-divider {
+height: 1px;
+background: var(–border);
+margin: 14px 0;
+}
+
+.btn-modal-wa {
+width: 100%;
+margin-top: 18px;
+padding: 14px;
+background: var(–success);
+border: none;
+border-radius: 12px;
+color: white;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 17px;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+
+.btn-modal-del {
+width: 100%;
+margin-top: 8px;
+padding: 12px;
+background: transparent;
+border: 1.5px solid var(–border);
+border-radius: 12px;
+color: var(–muted);
+font-family: ‘Barlow’, sans-serif;
+font-size: 13px;
+font-weight: 600;
+cursor: pointer;
+transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-modal-del:hover { border-color: var(–red); color: var(–red); }
+
+.btn-export {
+flex: 1;
+padding: 10px 8px;
+background: var(–surface);
+border: 1.5px solid var(–border);
+border-radius: var(–radius);
+color: var(–muted);
+font-family: ‘Barlow’, sans-serif;
+font-size: 13px;
+font-weight: 600;
+cursor: pointer;
+text-align: center;
+transition: border-color 0.2s, color 0.2s;
+}
+.btn-export:hover { border-color: var(–accent); color: var(–accent); }
+
+/* EMPTY */
+.empty {
+text-align: center;
+padding: 60px 20px;
+color: var(–muted);
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-txt { font-size: 15px; }
+
+/* TOAST */
+.toast {
+position: fixed;
+bottom: 24px;
+left: 50%;
+transform: translateX(-50%) translateY(120px);
+background: #333;
+color: white;
+padding: 12px 22px;
+border-radius: 50px;
+font-size: 14px;
+font-weight: 600;
+z-index: 9999;
+transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+white-space: nowrap;
+box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* SYNC dot */
+.sync-dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+background: var(–success);
+box-shadow: 0 0 6px var(–success);
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.4; }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">🔧</div>
+      <div class="brand-name">
+        Taller Mecánico Cappetta
+        <span>Sistema de Recepción</span>
+      </div>
+    </div>
+    <div class="sync-dot" title="Sincronizado"></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('form')">➕ Nuevo Ingreso</button>
+  <button class="tab" onclick="switchTab('historial')">📋 Historial</button>
+</div>
+
+<!-- ═══════════════ FORM ═══════════════ -->
+
+<div id="page-form" class="page active">
+  <div class="form-wrap">
+
+```
+<div class="fecha-badge" style="margin-bottom:4px;">
+  📅 <strong id="fecha-hoy"></strong>
+</div>
+
+<div class="section-label">👤 Cliente</div>
+
+<div class="field">
+  <label>Nombre y Apellido <span class="req">*</span></label>
+  <input type="text" id="nombre" placeholder="Ej: Juan Pérez" autocomplete="off">
+</div>
+
+<div class="field">
+  <label>Teléfono / WhatsApp <span class="req">*</span></label>
+  <input type="tel" id="telefono" placeholder="Ej: 1165432100" inputmode="tel">
+</div>
+
+<div class="section-label">🚗 Vehículo</div>
+
+<div class="field">
+  <label>Patente <span class="req">*</span></label>
+  <input type="text" id="patente" placeholder="ABC 123" maxlength="9">
+</div>
+
+<div class="row">
+  <div class="field">
+    <label>Marca</label>
+    <input type="text" id="marca" placeholder="Ej: Volkswagen">
+  </div>
+  <div class="field">
+    <label>Modelo</label>
+    <input type="text" id="modelo" placeholder="Ej: Gol">
+  </div>
+</div>
+
+<div class="row">
+  <div class="field">
+    <label>Año</label>
+    <input type="number" id="anio" placeholder="2018" inputmode="numeric">
+  </div>
+  <div class="field">
+    <label>Kilómetros</label>
+    <input type="number" id="km" placeholder="Ej: 85000" inputmode="numeric">
+  </div>
+</div>
+
+<div class="section-label">🔩 Trabajo</div>
+
+<div class="field">
+  <label>Motivo de ingreso <span class="req">*</span></label>
+  <textarea id="motivo" placeholder="Describí el problema o trabajo solicitado..."></textarea>
+</div>
+
+<div class="field">
+  <label>Observaciones adicionales</label>
+  <textarea id="extras" placeholder="Rayones, faltantes, aclaraciones..." style="min-height:68px;"></textarea>
+</div>
+
+<button class="btn-whatsapp" onclick="registrarYEnviar()">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Registrar y Enviar WhatsApp
+</button>
+
+<button class="btn-reset" onclick="limpiar()">🗑 Limpiar formulario</button>
+```
+
+  </div>
+</div>
+
+<!-- ═══════════════ HISTORIAL ═══════════════ -->
+
+<div id="page-historial" class="page">
+  <div class="historial-wrap">
+    <div class="hist-toolbar">
+      <input class="hist-search" type="text" id="buscador" placeholder="🔍  Buscar por nombre, patente, auto..." oninput="renderHistorial()">
+      <button class="btn-refresh" onclick="cargarDatos(true)" title="Actualizar">↻</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button class="btn-export" onclick="exportarDatos()">⬆️ Exportar</button>
+      <label class="btn-export" style="cursor:pointer;">
+        ⬇️ Importar
+        <input type="file" accept=".json" onchange="importarDatos(event)" style="display:none;">
+      </label>
+    </div>
+    <div id="lista-historial"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+
+<div class="modal-overlay" id="modal" onclick="cerrarModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="cerrarModal()">✕</button>
+    <div class="modal-title" id="m-nombre"></div>
+
+```
+<div class="modal-row">
+  <div class="modal-key">Patente</div>
+  <div class="modal-val" id="m-patente"></div>
+</div>
+<div class="modal-row">
+  <div class="modal-key">Vehículo</div>
+  <div class="modal-val" id="m-auto"></div>
+</div>
+<div class="modal-row">
+  <div class="modal-key">Teléfono</div>
+  <div class="modal-val" id="m-tel"></div>
+</div>
+<div class="modal-divider"></div>
+<div class="modal-row">
+  <div class="modal-key">Motivo</div>
+  <div class="modal-val" id="m-motivo"></div>
+</div>
+<div id="m-extras-wrap" class="modal-row">
+  <div class="modal-key">Observac.</div>
+  <div class="modal-val" id="m-extras"></div>
+</div>
+<div class="modal-divider"></div>
+<div class="modal-row">
+  <div class="modal-key">Fecha</div>
+  <div class="modal-val" id="m-fecha"></div>
+</div>
+
+<button class="btn-modal-wa" onclick="reenviarWA()">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Reenviar WhatsApp
+</button>
+<button class="btn-modal-del" onclick="eliminarIngreso()">🗑 Eliminar registro</button>
+```
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'cappetta_ingresos_v1';
+
+let ingresos = [];
+let modalActivo = null;
+
+// ── FECHA ──
+const ahora = new Date();
+document.getElementById('fecha-hoy').textContent =
+  ahora.toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' })
+       .replace(/^\w/, c => c.toUpperCase());
+
+document.getElementById('patente').addEventListener('input', function() {
+  this.value = this.value.toUpperCase();
+});
+
+// ── TABS ──
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', (i === 0 && tab==='form') || (i===1 && tab==='historial'));
+  });
+  document.getElementById('page-form').classList.toggle('active', tab==='form');
+  document.getElementById('page-historial').classList.toggle('active', tab==='historial');
+  if (tab === 'historial') cargarDatos();
+}
+
+// ── GOOGLE SHEETS BACKEND ──
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyXsGBiz0dbwqNb_GTQ9v29VO4XfoTS4aV5RfuiaVVIC_uRRxQXD-DVbkSJxHG2SMXSSA/exec';
+
+function buildParams(obj) {
+  return Object.keys(obj).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]||'')).join('&');
+}
+
+async function guardarIngreso(ingreso) {
+  try {
+    const params = buildParams({ action: 'add', ...ingreso });
+    await fetch(SCRIPT_URL + '?' + params);
+  } catch(e) {
+    console.error('Error guardando:', e);
+  }
+}
+
+async function eliminarEnSheets(id) {
+  try {
+    await fetch(SCRIPT_URL + '?action=delete&id=' + encodeURIComponent(id));
+  } catch(e) {
+    console.error('Error eliminando:', e);
+  }
+}
+
+async function cargarDatos(mostrarToast = false) {
+  try {
+    const res = await fetch(SCRIPT_URL + '?t=' + Date.now());
+    const json = await res.json();
+    if (json.ok && Array.isArray(json.data)) {
+      ingresos = json.data
+        .filter(r => r.id)
+        .map(r => ({
+          id: r.id,
+          nombre: r.nombre,
+          telefono: r.telefono,
+          patente: r.patente,
+          marca: r.marca,
+          modelo: r.modelo,
+          anio: r.anio,
+          km: r.km,
+          motivo: r.motivo,
+          extras: r.extras,
+          fechaISO: r.fechaISO,
+          hora: r.hora
+        }))
+        .sort((a,b) => b.fechaISO.localeCompare(a.fechaISO));
+      // Guardar copia local de respaldo
+      localStorage.setItem('cappetta_ingresos_v1', JSON.stringify(ingresos));
+    }
+  } catch(e) {
+    toast('Sin conexion, mostrando datos locales');
+    const raw = localStorage.getItem('cappetta_ingresos_v1');
+    ingresos = raw ? JSON.parse(raw) : [];
+  }
+  renderHistorial();
+  if (mostrarToast) toast('Historial actualizado');
+}
+
+// ── RENDER HISTORIAL ──
+function renderHistorial() {
+  const q = (document.getElementById('buscador').value || '').toLowerCase();
+  const lista = document.getElementById('lista-historial');
+
+  let filtrados = ingresos.filter(i => {
+    if (!q) return true;
+    return [i.nombre, i.patente, i.marca, i.modelo, i.telefono, i.motivo]
+      .some(v => v && v.toLowerCase().includes(q));
+  });
+
+  if (!filtrados.length) {
+    lista.innerHTML = `<div class="empty">
+      <div class="empty-icon">🔍</div>
+      <div class="empty-txt">${q ? 'Sin resultados para "'+q+'"' : 'No hay ingresos registrados todavía.'}</div>
+    </div>`;
+    return;
+  }
+
+  // Agrupar por fecha
+  const grupos = {};
+  filtrados.forEach(i => {
+    const d = i.fechaISO ? i.fechaISO.split('T')[0] : '?';
+    if (!grupos[d]) grupos[d] = [];
+    grupos[d].push(i);
+  });
+
+  const dias = Object.keys(grupos).sort((a,b) => b.localeCompare(a));
+
+  lista.innerHTML = dias.map(dia => {
+    const arr = grupos[dia];
+    const label = formatearDia(dia);
+    const cards = arr.map(i => `
+      <div class="ingreso-card" onclick="abrirModal('${i.id}')">
+        <div class="card-top">
+          <div class="card-nombre">${i.nombre}</div>
+          <div class="card-patente">${i.patente}</div>
+        </div>
+        <div class="card-auto">${[i.marca, i.modelo, i.anio].filter(Boolean).join(' ') || '—'}${i.km ? ' · ' + Number(i.km).toLocaleString('es-AR') + ' km' : ''}</div>
+        <div class="card-motivo">${i.motivo}</div>
+        <div class="card-hora">🕐 ${i.hora}</div>
+      </div>
+    `).join('');
+    return `<div class="day-group">
+      <div class="day-header">
+        ${label}
+        <span class="day-count">${arr.length} vehículo${arr.length!==1?'s':''}</span>
+      </div>
+      ${cards}
+    </div>`;
+  }).join('');
+}
+
+function formatearDia(isoDate) {
+  if (isoDate === '?') return 'Sin fecha';
+  const [y,m,d] = isoDate.split('-').map(Number);
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  const fecha = new Date(y, m-1, d);
+  const diff = Math.round((hoy - fecha) / 86400000);
+  const label = fecha.toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' })
+                     .replace(/^\w/, c => c.toUpperCase());
+  if (diff === 0) return '📅 Hoy — ' + label;
+  if (diff === 1) return '📅 Ayer — ' + label;
+  return '📅 ' + label;
+}
+
+// ── MODAL ──
+function abrirModal(id) {
+  const i = ingresos.find(x => x.id === id);
+  if (!i) return;
+  modalActivo = i;
+
+  document.getElementById('m-nombre').textContent = i.nombre;
+  document.getElementById('m-patente').textContent = i.patente;
+  document.getElementById('m-auto').textContent = [i.marca, i.modelo, i.anio].filter(Boolean).join(' ') + (i.km ? ' · ' + Number(i.km).toLocaleString('es-AR') + ' km' : '') || '—';
+  document.getElementById('m-tel').textContent = i.telefono;
+  document.getElementById('m-motivo').textContent = i.motivo;
+
+  const extrasWrap = document.getElementById('m-extras-wrap');
+  if (i.extras) {
+    document.getElementById('m-extras').textContent = i.extras;
+    extrasWrap.style.display = 'flex';
+  } else {
+    extrasWrap.style.display = 'none';
+  }
+
+  document.getElementById('m-fecha').textContent =
+    new Date(i.fechaISO).toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
+    + ' — ' + i.hora;
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function cerrarModal(e) {
+  if (e && e.target !== document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('open');
+  modalActivo = null;
+}
+
+async function eliminarIngreso() {
+  if (!modalActivo) return;
+  if (!confirm(`¿Eliminar el registro de ${modalActivo.nombre}?`)) return;
+  const idEliminar = modalActivo.id;
+  document.getElementById('modal').classList.remove('open');
+  modalActivo = null;
+  toast('Eliminando...');
+  await eliminarEnSheets(idEliminar);
+  await cargarDatos();
+  toast('Registro eliminado');
+}
+
+// ── REGISTRAR Y ENVIAR ──
+async function registrarYEnviar() {
+  const nombre   = v('nombre');
+  const telefono = v('telefono');
+  const patente  = v('patente');
+  const marca    = v('marca');
+  const modelo   = v('modelo');
+  const anio     = v('anio');
+  const km       = v('km');
+  const motivo   = v('motivo');
+  const extras   = v('extras');
+
+  if (!nombre || !telefono || !patente || !motivo) {
+    alert('Completá al menos: Nombre, Teléfono, Patente y Motivo.');
+    return;
+  }
+
+  const now = new Date();
+  const hora = now.toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit' });
+
+  const ingreso = {
+    id: 'ing_' + Date.now(),
+    nombre, telefono, patente, marca, modelo, anio, km, motivo, extras,
+    fechaISO: now.toISOString(),
+    hora
+  };
+
+  // Guardar en Google Sheets
+  toast('Guardando...');
+  await guardarIngreso(ingreso);
+
+  // Armar y abrir WhatsApp
+  abrirWhatsApp(ingreso);
+
+  limpiar();
+  toast('✅ Ingreso registrado y WhatsApp abierto');
+}
+
+function abrirWhatsApp(i) {
+  let tel = i.telefono.replace(/\D/g,'');
+  if (tel.startsWith('0')) tel = tel.slice(1);
+  if (!tel.startsWith('54')) tel = '54' + tel;
+
+  let auto = i.patente;
+  const partes = [i.marca, i.modelo, i.anio].filter(Boolean);
+  if (partes.length) auto += ' — ' + partes.join(' ');
+  if (i.km) auto += ` (${Number(i.km).toLocaleString('es-AR')} km)`;
+
+  const fecha = new Date(i.fechaISO).toLocaleDateString('es-AR');
+
+  let msg = `🔧 *TALLER MECÁNICO CAPPETTA*\n`;
+  msg += `📋 *Comprobante de Ingreso*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━\n\n`;
+  msg += `👤 *Cliente:* ${i.nombre}\n`;
+  msg += `📅 *Fecha:* ${fecha} — ${i.hora}\n\n`;
+  msg += `🚗 *Vehículo:* ${auto}\n\n`;
+  msg += `🔩 *Motivo de ingreso:*\n${i.motivo}\n`;
+  if (i.extras) msg += `\n📋 *Observaciones:*\n${i.extras}\n`;
+  msg += `\n━━━━━━━━━━━━━━━━━━\n`;
+  msg += `✅ Su vehículo fue recibido en nuestro taller.\nLo contactaremos a la brevedad con novedades.\n\n`;
+  msg += `_Taller Mecánico Cappetta_`;
+
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function reenviarWA() {
+  if (modalActivo) abrirWhatsApp(modalActivo);
+}
+
+function exportarDatos() {
+  if (!ingresos.length) { toast('No hay datos para exportar'); return; }
+  const blob = new Blob([JSON.stringify(ingresos, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'cappetta_historial.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('⬆️ Historial exportado');
+}
+
+function importarDatos(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const datos = JSON.parse(e.target.result);
+      if (!Array.isArray(datos)) throw new Error('Formato inválido');
+      // Merge: agregar los que no existen
+      const idsActuales = new Set(ingresos.map(i => i.id));
+      const nuevos = datos.filter(i => !idsActuales.has(i.id));
+      ingresos = [...nuevos, ...ingresos].sort((a,b) => b.fechaISO.localeCompare(a.fechaISO));
+      await guardarIngresos();
+      renderHistorial();
+      toast(`⬇️ ${nuevos.length} registro${nuevos.length!==1?'s':''} importado${nuevos.length!==1?'s':''}`);
+    } catch(e) {
+      toast('❌ Error al importar el archivo');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ── UTILS ──
+function v(id) { return document.getElementById(id).value.trim(); }
+
+function limpiar() {
+  ['nombre','telefono','patente','marca','modelo','anio','km','motivo','extras']
+    .forEach(id => document.getElementById(id).value = '');
+}
+
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── INIT ──
+cargarDatos();
+
+// Auto-refresh cada 30 segundos cuando el historial está visible
+setInterval(() => {
+  if (document.getElementById('page-historial').classList.contains('active')) {
+    cargarDatos();
+  }
+}, 30000);
+</script>
+
+</body>
+</html>
